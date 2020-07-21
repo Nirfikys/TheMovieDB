@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">TheMovieDB</string>
+    <string name="saved_movie">сохраненные фильмы</string>
+    <string name="home_movie">главная</string>
 </resources>

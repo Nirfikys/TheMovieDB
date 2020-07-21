@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<item
+    android:id="@+id/home_movie"
+    android:icon="@drawable/ic_home_black_48dp"
+    android:title="@string/home_movie"
+    />
+    <item
+        android:id="@+id/saved_movie"
+        android:icon="@drawable/ic_save_black_48dp"
+        android:title="@string/saved_movie"
+        />
+</menu>
