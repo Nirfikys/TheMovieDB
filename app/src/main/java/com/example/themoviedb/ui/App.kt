@@ -2,6 +2,7 @@ package com.example.themoviedb.ui
 
 import android.app.Application
 import com.example.themoviedb.presenter.modules.AppModule
+import com.example.themoviedb.presenter.modules.CacheModule
 import com.example.themoviedb.presenter.modules.RemoteModule
 import dagger.Component
 import javax.inject.Singleton
@@ -26,7 +27,7 @@ class App : Application() {
 }
 
 @Singleton
-@Component(modules = [AppModule::class, RemoteModule::class])
+@Component(modules = [AppModule::class, CacheModule::class, RemoteModule::class])
 interface AppComponent {
     fun inject(fragment: PopularMovieFragment)
     fun inject(fragment: UpcomingMovieFragment)
