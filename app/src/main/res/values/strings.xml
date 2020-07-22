@@ -2,4 +2,6 @@
     <string name="app_name">TheMovieDB</string>
     <string name="saved_movie">сохраненные фильмы</string>
     <string name="home_movie">главная</string>
+    <string name="tab_popular">популярные</string>
+    <string name="tab_upcoming">предстоящие</string>
 </resources>
