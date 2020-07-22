@@ -1,7 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="movieModel"
+            type="com.example.themoviedb.presenter.viewmodel.MovieViewModel" />
+    </data>
+
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -9,5 +18,46 @@
             android:id="@+id/movie_recycler"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
-    </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/page_indicator"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:background="@color/windowBackground"
+            android:orientation="horizontal"
+            android:padding="10dp"
+            android:visibility="@{movieModel.moviePreviews == null ? View.GONE : View.VISIBLE}">
+
+            <ImageView
+                android:onClick="@{() -> movieModel.getPrevPage()}"
+                android:id="@+id/page_indicator_prev"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:clickable="@{!movieModel.movieChangePageInProgress}"
+                android:focusable="true"
+                android:foreground="?selectableItemBackground"
+                android:src="@drawable/ic_keyboard_arrow_left_black_48dp"
+                android:visibility="@{movieModel.moviePreviews.page == 1 ? View.GONE : View.VISIBLE}" />
+
+            <TextView
+                android:id="@+id/page_indicator_tv"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="@{@string/page_indicator_pattern(movieModel.moviePreviews.page, movieModel.moviePreviews.totalPages)}" />
+
+            <ImageView
+                android:onClick="@{() -> movieModel.getNextPage()}"
+                android:id="@+id/page_indicator_next"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:clickable="@{!movieModel.movieChangePageInProgress}"
+                android:focusable="true"
+                android:foreground="?selectableItemBackground"
+                android:src="@drawable/ic_keyboard_arrow_right_black_48dp"
+                android:visibility="@{movieModel.moviePreviews.page == movieModel.moviePreviews.totalPages ? View.GONE : View.VISIBLE}" />
+        </LinearLayout>
+    </FrameLayout>
 </layout>

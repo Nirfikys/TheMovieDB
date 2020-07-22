@@ -9,8 +9,8 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.themoviedb.databinding.MovieListLayoutBinding
 import com.example.themoviedb.domain.MovieRepository
-import com.example.themoviedb.presenter.viewmodel.PopularViewModel
-import com.example.themoviedb.presenter.viewmodel.PopularViewModelFactory
+import com.example.themoviedb.presenter.viewmodel.MovieViewModel
+import com.example.themoviedb.presenter.viewmodel.MovieViewModelFactory
 import com.example.themoviedb.ui.core.observe
 import javax.inject.Inject
 
@@ -18,7 +18,7 @@ class PopularMovieFragment : Fragment() {
     lateinit var binding: MovieListLayoutBinding
     @Inject
     lateinit var repository: MovieRepository
-    val movieModel: PopularViewModel by viewModels { PopularViewModelFactory(repository) }
+    val movieModel: MovieViewModel by viewModels { MovieViewModelFactory(repository) }
     val adapter = PreviewMovieAdapter()
 
     init {
@@ -31,6 +31,8 @@ class PopularMovieFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = MovieListLayoutBinding.inflate(inflater, container, false)
+        binding.movieModel = movieModel
+        binding.lifecycleOwner = this
         setupView()
         return binding.root
     }
@@ -38,6 +40,7 @@ class PopularMovieFragment : Fragment() {
     private fun setupView() {
         binding.movieRecycler.layoutManager = GridLayoutManager(requireContext(), 2)
         binding.movieRecycler.adapter = adapter
+
 
         observe(movieModel.moviePreviews) {
             adapter.changeAdapterData(it.movies)
