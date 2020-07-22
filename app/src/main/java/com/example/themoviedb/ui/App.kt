@@ -29,4 +29,5 @@ class App : Application() {
 @Component(modules = [AppModule::class, RemoteModule::class])
 interface AppComponent {
     fun inject(fragment: PopularMovieFragment)
+    fun inject(fragment: UpcomingMovieFragment)
 }

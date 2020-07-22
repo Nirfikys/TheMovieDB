@@ -10,7 +10,8 @@ import com.example.themoviedb.presenter.core.HandleOnce
 import kotlinx.coroutines.launch
 
 class MovieViewModel(
-    private val repository: MovieRepository
+    private val repository: MovieRepository,
+    private val popular: Boolean
 ) : BaseViewModel() {
 
     init {
@@ -43,11 +44,13 @@ class MovieViewModel(
     private fun getPage(nextPage: Int) {
         viewModelScope.launch {
             try {
-                val page = repository.getPopularMovies(nextPage)
+                val page =
+                    if (popular) repository.getPopularMovies(nextPage)
+                    else repository.getUpcomingMovies(nextPage)
                 moviePreviews.value = page
             } catch (e: Exception) {
                 failureData.value = HandleOnce(e)
-            }finally {
+            } finally {
                 movieChangePageInProgress.value = false
             }
         }
@@ -55,9 +58,10 @@ class MovieViewModel(
 }
 
 class MovieViewModelFactory(
-    private val repository: MovieRepository
+    private val repository: MovieRepository,
+    private val popular: Boolean
 ) : ViewModelProvider.Factory {
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        return MovieViewModel(repository) as T
+        return MovieViewModel(repository, popular) as T
     }
 }

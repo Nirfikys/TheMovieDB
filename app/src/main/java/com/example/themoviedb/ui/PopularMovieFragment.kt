@@ -18,7 +18,7 @@ class PopularMovieFragment : Fragment() {
     lateinit var binding: MovieListLayoutBinding
     @Inject
     lateinit var repository: MovieRepository
-    val movieModel: MovieViewModel by viewModels { MovieViewModelFactory(repository) }
+    val movieModel: MovieViewModel by viewModels { MovieViewModelFactory(repository, true) }
     val adapter = PreviewMovieAdapter()
 
     init {
