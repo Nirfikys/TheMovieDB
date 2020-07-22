@@ -13,8 +13,9 @@ class CacheModule {
     @Singleton
     @Provides
     fun provideApiService(context: Context): MovieDao {
-        return Room.databaseBuilder(context, MovieDatabase::class.java, "themoviedb")
-            .fallbackToDestructiveMigration()
-            .build().movieDao
+        return Room.inMemoryDatabaseBuilder(context, MovieDatabase::class.java).build().movieDao
+//        return Room.databaseBuilder(context, MovieDatabase::class.java, "themoviedb")
+//            .fallbackToDestructiveMigration()
+//            .build().movieDao
     }
 }

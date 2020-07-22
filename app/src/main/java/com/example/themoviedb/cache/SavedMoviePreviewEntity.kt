@@ -4,17 +4,21 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity
-data class MovieCacheEntity(
+data class SavedMoviePreviewEntity(
     @PrimaryKey
-    val id: Int,
+    val movieId: Int,
     val title: String,
     val posterPath: String,
     val overview: String
 ) {
     override fun equals(other: Any?): Boolean {
         return when (other) {
-            is MovieCacheEntity -> id == other.id
+            is SavedMoviePreviewEntity -> movieId == other.movieId
             else -> super.equals(other)
         }
+    }
+
+    override fun hashCode(): Int {
+        return movieId
     }
 }

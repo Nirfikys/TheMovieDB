@@ -4,6 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
+import com.example.themoviedb.domain.MoviePreviewEntity
 import com.example.themoviedb.domain.MovieRepository
 import com.example.themoviedb.domain.PageMovieEntity
 import com.example.themoviedb.presenter.core.HandleOnce
@@ -39,6 +40,16 @@ class MovieViewModel(
 
     fun updateMoviePreview() {
         getPage(1)
+    }
+
+    fun saveMovies(moviePreviews: List<MoviePreviewEntity>){
+        viewModelScope.launch {
+            try {
+                repository.saveMovies(moviePreviews)
+            }catch (e:Exception){
+                failureData.value = HandleOnce(e)
+            }
+        }
     }
 
     private fun getPage(nextPage: Int) {

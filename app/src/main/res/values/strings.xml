@@ -5,4 +5,5 @@
     <string name="tab_popular">популярные</string>
     <string name="tab_upcoming">предстоящие</string>
     <string name="page_indicator_pattern">%d/%d</string>
+    <string name="add_to_save">add to save</string>
 </resources>

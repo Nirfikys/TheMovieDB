@@ -9,19 +9,21 @@ class MovieRepositoryImpl(
     private val remote: ApiService,
     private val cache: MovieDao
 ) : MovieRepository {
-    override val savedMovies: LiveData<List<MovieEntity>> =
+    override val savedMovies: LiveData<List<MoviePreviewEntity>> =
         Transformations.map(cache.getAllSavedMovies()) { it.map { it.toEntity() } }
 
-    override suspend fun saveMovie(movieEntity: MovieEntity) {
-        cache.saveMovie(movieEntity.toCache())
+    override suspend fun saveMovies(moviePreview: List<MoviePreviewEntity>) {
+        cache.saveMovie(moviePreview.map { it.toSavedMovie() })
     }
 
-    override suspend fun deleteSavedMovie(movieEntity: MovieEntity) {
-        cache.deleteMovie(movieEntity.toCache())
+    override suspend fun deleteSavedMovie(moviePreview: MoviePreviewEntity) {
+        cache.deleteSavedMovie(moviePreview.toSavedMovie())
     }
 
     override suspend fun getPopularMovies(page: Int?): PageMovieEntity {
-        return remote.getPopularMovies(page).toEntity()
+        val remotePage = remote.getPopularMovies(page).toEntity()
+        cache.cachePage(remotePage.toSavedMovie())
+        return remotePage
     }
 
     override suspend fun getUpcomingMovies(page: Int?): PageMovieEntity {

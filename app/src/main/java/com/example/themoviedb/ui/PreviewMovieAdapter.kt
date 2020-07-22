@@ -6,7 +6,9 @@ import com.example.themoviedb.databinding.MovieItemBinding
 import com.example.themoviedb.domain.MoviePreviewEntity
 import com.example.themoviedb.ui.core.BaseAdapter
 
-class PreviewMovieAdapter : BaseAdapter<PreviewMovieAdapter.PreviewMovieViewHolder, MoviePreviewEntity>() {
+class PreviewMovieAdapter :
+    BaseAdapter<PreviewMovieAdapter.PreviewMovieViewHolder, MoviePreviewEntity>() {
+    val selected = HashSet<Int>()
 
     override fun areContentsTheSame(
         oldItem: MoviePreviewEntity,
@@ -29,10 +31,38 @@ class PreviewMovieAdapter : BaseAdapter<PreviewMovieAdapter.PreviewMovieViewHold
         )
     }
 
+    override fun onBindViewHolder(holder: PreviewMovieViewHolder, position: Int) {
+        holder.selected = selected.contains(position)
+        super.onBindViewHolder(holder, position)
+    }
+
+    fun selectOrUnSelectMovie(movie: MoviePreviewEntity) {
+        val position = super.items.indexOf(movie)
+        if (position == -1) return
+        if (selected.contains(position))
+            selected.remove(position)
+        else
+            selected.add(position)
+        notifyItemChanged(position)
+    }
+
+    fun clearSelected() {
+        val selectedMovie = selected.toList()
+        selected.clear()
+        selectedMovie.forEach { notifyItemChanged(it) }
+    }
+
+    fun getSelectedMovie(): List<MoviePreviewEntity> {
+        return super.items.filterIndexed { index, _ -> selected.contains(index) }
+    }
+
     class PreviewMovieViewHolder(private val binding: MovieItemBinding) :
-        BaseAdapter.BaseViewHolder<MoviePreviewEntity>(binding.root){
+        BaseAdapter.BaseViewHolder<MoviePreviewEntity>(binding.root) {
+        var selected = false
         override fun onBind(item: MoviePreviewEntity) {
             binding.movie = item
+            binding.previewMovieCard.isChecked = selected
+            binding.invalidateAll()
         }
     }
 }

@@ -9,7 +9,9 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
+import androidx.navigation.ui.setupWithNavController
 import com.example.themoviedb.R
+import com.google.android.material.navigation.NavigationView
 
 class MainActivity : AppCompatActivity() {
 
@@ -24,7 +26,11 @@ class MainActivity : AppCompatActivity() {
         navController = host.navController
 
         val drawerLayout = findViewById<DrawerLayout>(R.id.drawer_layout)
-        appBarConfiguration = AppBarConfiguration(setOf(R.id.homeFragment), drawerLayout)
+        appBarConfiguration =
+            AppBarConfiguration(setOf(R.id.homeFragment, R.id.savedListFragment), drawerLayout)
+
+        val navView =
+            findViewById<NavigationView>(R.id.nav_view).setupWithNavController(navController)
     }
 
     fun setupToolbar() {

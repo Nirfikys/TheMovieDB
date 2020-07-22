@@ -25,7 +25,15 @@
         android:label="MovieDetailFragment"
         tools:layout="@layout/detail_layout">
         <argument
-            android:name="movieId"
-            app:argType="long" />
+            android:name="movie"
+            app:argType="" />
+    </fragment>
+    <fragment
+        android:id="@+id/savedListFragment"
+        android:name="com.example.themoviedb.ui.SavedListFragment"
+        android:label="SavedListFragment" >
+        <action
+            android:id="@+id/action_savedListFragment_to_movieDetailFragment"
+            app:destination="@id/movieDetailFragment" />
     </fragment>
 </navigation>
