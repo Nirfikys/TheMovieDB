@@ -8,17 +8,15 @@ data class MovieEntity(
     val id: Int,
     val title: String,
     val posterPath: String,
-    val overview: String,
-    val cast: List<MovieCastEntity>
+    val overview: String
 ) : Serializable
 
-fun MovieInfo.toEntity(cast: List<MovieCastEntity>): MovieEntity {
+fun MovieInfo.toEntity(): MovieEntity {
     return MovieEntity(
         id,
         title,
         posterPath ?: "",
-        overview ?: "",
-        cast
+        overview ?: ""
     )
 }
 

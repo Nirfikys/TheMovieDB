@@ -35,6 +35,10 @@ class MovieRepositoryImpl(
         cache.saveMovie(movieToSave)
     }
 
+    override suspend fun getCastMovie(movie: MovieEntity): List<MovieCastEntity> {
+        return remote.getCastInfo(movie.id).cast.map { it.toEntity() }
+    }
+
     override suspend fun deleteSavedMovie(moviePreview: MoviePreviewEntity) {
         cache.deleteSavedMovie(moviePreview.toSavedMovie())
     }
@@ -50,9 +54,7 @@ class MovieRepositoryImpl(
     }
 
     override suspend fun getMovieInfo(id: Int): MovieEntity {
-        val movieInfo = remote.getMovieInfo(id)
-        val cast = remote.getCastInfo(id)
-        return movieInfo.toEntity(cast.cast.map { it.toEntity() })
+        return remote.getMovieInfo(id).toEntity()
     }
 
 }
