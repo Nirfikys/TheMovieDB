@@ -10,7 +10,7 @@ interface ApiService {
 
         //methods
         const val POPULAR_MOVIE = "3/discover/movie?api_key=$API_KEY&sort_by=popularity.desc"
-        const val UPCOMING_MOVIE = "3/discover/movie?api_key=$API_KEY&sort_by=upcoming"
+        const val UPCOMING_MOVIE = "3/movie/upcoming?api_key=$API_KEY"
         const val INFO = "3/movie/{movie_id}?api_key=$API_KEY"
 
         //params

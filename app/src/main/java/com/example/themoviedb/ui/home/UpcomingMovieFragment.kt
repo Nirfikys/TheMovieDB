@@ -1,4 +1,4 @@
-package com.example.themoviedb.ui
+package com.example.themoviedb.ui.home
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -11,6 +11,8 @@ import com.example.themoviedb.databinding.MovieListLayoutBinding
 import com.example.themoviedb.domain.MovieRepository
 import com.example.themoviedb.presenter.viewmodel.MovieViewModel
 import com.example.themoviedb.presenter.viewmodel.MovieViewModelFactory
+import com.example.themoviedb.ui.App
+import com.example.themoviedb.ui.adapter.PreviewMovieAdapter
 import com.example.themoviedb.ui.core.observe
 import javax.inject.Inject
 

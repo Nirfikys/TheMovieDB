@@ -1,4 +1,4 @@
-package com.example.themoviedb.ui
+package com.example.themoviedb.ui.home
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

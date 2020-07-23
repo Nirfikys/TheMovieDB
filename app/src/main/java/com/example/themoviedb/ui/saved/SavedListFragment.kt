@@ -1,4 +1,4 @@
-package com.example.themoviedb.ui
+package com.example.themoviedb.ui.saved
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -11,7 +11,10 @@ import com.example.themoviedb.databinding.SavedLayoutBinding
 import com.example.themoviedb.domain.MovieRepository
 import com.example.themoviedb.presenter.viewmodel.SavedMovieViewModel
 import com.example.themoviedb.presenter.viewmodel.SavedMovieViewModelFactory
+import com.example.themoviedb.ui.App
+import com.example.themoviedb.ui.adapter.PreviewMovieAdapter
 import com.example.themoviedb.ui.core.observe
+import com.example.themoviedb.ui.home.MainActivity
 import javax.inject.Inject
 
 class SavedListFragment : Fragment() {

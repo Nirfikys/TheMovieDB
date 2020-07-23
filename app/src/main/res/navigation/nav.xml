@@ -6,17 +6,8 @@
     app:startDestination="@id/homeFragment">
 
     <fragment
-        android:id="@+id/moviesListFragment"
-        android:name="com.example.themoviedb.ui.MoviesListFragment"
-        android:label="MoviesListFragment"
-        tools:layout="@layout/movie_list_layout">
-        <action
-            android:id="@+id/action_moviesListFragment_to_movieDetailFragment"
-            app:destination="@id/movieDetailFragment" />
-    </fragment>
-    <fragment
         android:id="@+id/homeFragment"
-        android:name="com.example.themoviedb.ui.HomeFragment"
+        android:name="com.example.themoviedb.ui.home.HomeFragment"
         android:label="@string/app_name"
         tools:layout="@layout/home_layout" >
         <action
@@ -25,7 +16,7 @@
     </fragment>
     <fragment
         android:id="@+id/movieDetailFragment"
-        android:name="com.example.themoviedb.ui.MovieDetailFragment"
+        android:name="com.example.themoviedb.ui.detail.MovieDetailFragment"
         android:label=""
         tools:layout="@layout/detail_layout">
         <argument
@@ -35,18 +26,10 @@
     <fragment
         android:id="@+id/savedListFragment"
         tools:layout="@layout/saved_layout"
-        android:name="com.example.themoviedb.ui.SavedListFragment"
+        android:name="com.example.themoviedb.ui.saved.SavedListFragment"
         android:label="Saved">
         <action
             android:id="@+id/action_savedListFragment_to_movieDetailFragment"
-            app:destination="@id/movieDetailFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/popularMovieFragment"
-        android:name="com.example.themoviedb.ui.PopularMovieFragment"
-        android:label="PopularMovieFragment" >
-        <action
-            android:id="@+id/action_popularMovieFragment_to_movieDetailFragment"
             app:destination="@id/movieDetailFragment" />
     </fragment>
 </navigation>

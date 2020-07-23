@@ -1,4 +1,4 @@
-package com.example.themoviedb.ui
+package com.example.themoviedb.ui.home
 
 import android.view.Menu
 import android.view.MenuItem

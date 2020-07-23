@@ -1,4 +1,4 @@
-package com.example.themoviedb.ui
+package com.example.themoviedb.ui.detail
 
 import android.os.Bundle
 import android.view.*
@@ -11,6 +11,9 @@ import com.example.themoviedb.domain.MovieEntity
 import com.example.themoviedb.domain.MovieRepository
 import com.example.themoviedb.presenter.viewmodel.SavedMovieViewModel
 import com.example.themoviedb.presenter.viewmodel.SavedMovieViewModelFactory
+import com.example.themoviedb.ui.App
+import com.example.themoviedb.ui.MovieDetailFragmentArgs
+import com.example.themoviedb.ui.home.MainActivity
 import com.google.android.material.transition.MaterialContainerTransform
 import javax.inject.Inject
 

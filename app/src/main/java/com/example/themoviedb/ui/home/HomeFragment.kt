@@ -1,4 +1,4 @@
-package com.example.themoviedb.ui
+package com.example.themoviedb.ui.home
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.themoviedb.R
 import com.example.themoviedb.databinding.HomeLayoutBinding
+import com.example.themoviedb.ui.adapter.MoviePagerAdapter
 import com.google.android.material.tabs.TabLayoutMediator
 
 class HomeFragment : Fragment() {
@@ -29,7 +30,8 @@ class HomeFragment : Fragment() {
     }
 
     private fun setupViewpager() {
-        binding.viewpager.adapter = MoviePagerAdapter(activity as AppCompatActivity)
+        binding.viewpager.adapter =
+            MoviePagerAdapter(activity as AppCompatActivity)
         TabLayoutMediator(binding.movieTabs, binding.viewpager) { tab, position ->
             tab.text = when (position) {
                 0 -> requireContext().getString(R.string.tab_popular)

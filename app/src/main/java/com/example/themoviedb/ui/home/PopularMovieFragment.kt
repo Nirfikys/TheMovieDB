@@ -1,4 +1,4 @@
-package com.example.themoviedb.ui
+package com.example.themoviedb.ui.home
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -20,8 +20,10 @@ import com.example.themoviedb.domain.MoviePreviewEntity
 import com.example.themoviedb.domain.MovieRepository
 import com.example.themoviedb.presenter.viewmodel.MovieViewModel
 import com.example.themoviedb.presenter.viewmodel.MovieViewModelFactory
+import com.example.themoviedb.ui.App
+import com.example.themoviedb.ui.HomeFragmentDirections
+import com.example.themoviedb.ui.adapter.PreviewMovieAdapter
 import com.example.themoviedb.ui.core.observe
-import com.google.android.material.transition.MaterialContainerTransform
 import javax.inject.Inject
 
 class PopularMovieFragment : Fragment() {
@@ -83,7 +85,9 @@ class PopularMovieFragment : Fragment() {
             val image = transitionView?.findViewById<ImageView>(R.id.movie_item_image)
             val extras = FragmentNavigatorExtras( image!! to image.transitionName )
             val destination =
-                HomeFragmentDirections.actionHomeFragmentToMovieDetailFragment(movie)
+                HomeFragmentDirections.actionHomeFragmentToMovieDetailFragment(
+                    movie
+                )
             findNavController().navigate(destination, extras)
         }
     }

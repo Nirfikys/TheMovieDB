@@ -1,8 +1,10 @@
-package com.example.themoviedb.ui
+package com.example.themoviedb.ui.adapter
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
+import com.example.themoviedb.ui.home.PopularMovieFragment
+import com.example.themoviedb.ui.home.UpcomingMovieFragment
 
 class MoviePagerAdapter(fa: FragmentActivity) : FragmentStateAdapter(fa) {
     companion object{

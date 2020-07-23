@@ -4,6 +4,10 @@ import android.app.Application
 import com.example.themoviedb.presenter.modules.AppModule
 import com.example.themoviedb.presenter.modules.CacheModule
 import com.example.themoviedb.presenter.modules.RemoteModule
+import com.example.themoviedb.ui.detail.MovieDetailFragment
+import com.example.themoviedb.ui.home.PopularMovieFragment
+import com.example.themoviedb.ui.home.UpcomingMovieFragment
+import com.example.themoviedb.ui.saved.SavedListFragment
 import dagger.Component
 import javax.inject.Singleton
 
