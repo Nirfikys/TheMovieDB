@@ -8,11 +8,20 @@ interface MovieDao {
     @Query("SELECT * FROM SavedMoviePreviewEntity")
     fun getAllSavedMovies(): LiveData<List<SavedMoviePreviewEntity>>
 
+    @Query("SELECT * FROM SavedMoviePreviewEntity WHERE movieId = :id")
+    suspend fun getSavedMovieById(id: Int): SavedMoviePreviewEntity?
+
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun saveMovie(movie: List<SavedMoviePreviewEntity>)
+    suspend fun saveMovies(movies: List<SavedMoviePreviewEntity>)
+
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    suspend fun saveMovie(movie: SavedMoviePreviewEntity)
 
     @Delete
     suspend fun deleteSavedMovie(movie: SavedMoviePreviewEntity)
+
+    @Delete
+    suspend fun deleteSavedMovies(movies: List<SavedMoviePreviewEntity>)
 
     @Insert
     suspend fun cacheMovie(movie: MoviePreviewCacheEntity)

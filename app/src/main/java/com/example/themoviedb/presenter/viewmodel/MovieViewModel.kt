@@ -9,7 +9,6 @@ import com.example.themoviedb.domain.MoviePreviewEntity
 import com.example.themoviedb.domain.MovieRepository
 import com.example.themoviedb.domain.PageMovieEntity
 import com.example.themoviedb.presenter.core.HandleOnce
-import kotlinx.coroutines.handleCoroutineException
 import kotlinx.coroutines.launch
 
 class MovieViewModel(
@@ -24,6 +23,7 @@ class MovieViewModel(
     val moviePreviews = MutableLiveData<PageMovieEntity>()
     val movieChangePageInProgress = MutableLiveData<Boolean>(false)
     val movieInfoData = MutableLiveData<HandleOnce<MovieEntity>>()
+    val movieSaveStatus = MutableLiveData<HandleOnce<Int>>()
 
     fun getNextPage() {
         val previewsPage = moviePreviews.value ?: return
@@ -45,10 +45,11 @@ class MovieViewModel(
         getPage(1)
     }
 
-    fun saveMovies(moviePreviews: List<MoviePreviewEntity>){
+    fun saveOrDeleteMovies(moviePreviews: List<MoviePreviewEntity>){
         viewModelScope.launch {
             try {
-                repository.saveMovies(moviePreviews)
+                repository.saveOrDeleteMovies(moviePreviews)
+                movieSaveStatus.value = HandleOnce(0)
             }catch (e:Exception){
                 failureData.value = HandleOnce(e)
             }

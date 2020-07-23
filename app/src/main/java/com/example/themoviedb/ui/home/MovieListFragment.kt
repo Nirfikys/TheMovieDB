@@ -2,7 +2,6 @@ package com.example.themoviedb.ui.home
 
 import android.view.MenuItem
 import android.view.View
-import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.view.ActionMode
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
@@ -54,8 +53,16 @@ abstract class MovieListFragment<T : ViewDataBinding>(private val popular: Boole
                 is IOException -> requireContext().getText(R.string.error_network)
                 else -> requireContext().getText(R.string.error)
             }
-            Snackbar.make(binding.root, message, Snackbar.LENGTH_LONG).show()
+            showMessage(message)
         }
+        observe(movieModel.movieSaveStatus) {
+            val value = it.getContentIfNotHandled() ?: return@observe
+            showMessage(requireContext().getText(R.string.successfully))
+        }
+    }
+
+    private fun showMessage(message: CharSequence) {
+        Snackbar.make(binding.root, message, Snackbar.LENGTH_LONG).show()
     }
 
     protected open fun getMovieInfo(moviePreviewEntity: MoviePreviewEntity, view: View) {
@@ -69,7 +76,7 @@ abstract class MovieListFragment<T : ViewDataBinding>(private val popular: Boole
 
     protected fun selectItem(menuItem: MenuItem?): Boolean {
         val selectedMovie = adapter.getSelectedMovie().toList()
-        movieModel.saveMovies(selectedMovie)
+        movieModel.saveOrDeleteMovies(selectedMovie)
         (activity as MainActivity).cancelActionMode(this as MovieListFragment<ViewDataBinding>)
         return true
     }

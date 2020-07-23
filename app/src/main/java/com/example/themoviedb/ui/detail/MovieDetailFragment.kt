@@ -64,7 +64,7 @@ class MovieDetailFragment : Fragment() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == R.id.menu_add_to_saved)
-            saveModel.saveMovies(movie)
+            saveModel.saveOrDeleteMovies(movie)
         return super.onOptionsItemSelected(item)
     }
 

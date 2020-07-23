@@ -3,6 +3,7 @@ package com.example.themoviedb.domain
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
 import com.example.themoviedb.cache.MovieDao
+import com.example.themoviedb.cache.SavedMoviePreviewEntity
 import com.example.themoviedb.remote.ApiService
 
 class MovieRepositoryImpl(
@@ -12,14 +13,26 @@ class MovieRepositoryImpl(
     override val savedMovies: LiveData<List<MoviePreviewEntity>> =
         Transformations.map(cache.getAllSavedMovies()) { it.map { it.toEntity() } }
 
-    override suspend fun saveMovies(moviePreview: List<MoviePreviewEntity>) {
-        cache.saveMovie(moviePreview.map { it.toSavedMovie() })
+    override suspend fun saveOrDeleteMovies(moviePreview: List<MoviePreviewEntity>) {
+        val movieToSave = ArrayList<SavedMoviePreviewEntity>()
+        val movieToDelete = ArrayList<SavedMoviePreviewEntity>()
+        moviePreview.map { it.toSavedMovie() }.forEach {
+            val savedMovie = cache.getSavedMovieById(it.movieId)
+            if (savedMovie == null)
+                movieToSave.add(it)
+            else
+                movieToDelete.add(it)
+        }
+        cache.saveMovies(movieToSave)
+        cache.deleteSavedMovies(movieToDelete)
     }
 
-    override suspend fun saveMovie(movie: MovieEntity) {
-        cache.saveMovie(listOf(
-            movie.toSaved()
-        ))
+    override suspend fun saveOrDeleteMovie(movie: MovieEntity) {
+        val savedMovie = cache.getSavedMovieById(movie.id)
+        val movieToSave = movie.toSaved()
+        if (savedMovie != null)
+            cache.deleteSavedMovie(movieToSave)
+        cache.saveMovie(movieToSave)
     }
 
     override suspend fun deleteSavedMovie(moviePreview: MoviePreviewEntity) {

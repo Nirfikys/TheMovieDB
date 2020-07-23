@@ -14,10 +14,10 @@ class SavedMovieViewModel(
 
     val savedMovies = repository.savedMovies
 
-    fun saveMovies(movie: MovieEntity){
+    fun saveOrDeleteMovies(movie: MovieEntity){
         viewModelScope.launch {
             try {
-                repository.saveMovie(movie)
+                repository.saveOrDeleteMovie(movie)
             }catch (e:Exception){
                 failureData.value = HandleOnce(e)
             }

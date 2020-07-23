@@ -11,4 +11,5 @@
     <string name="transition_overview_pattern">overview %d</string>
     <string name="error">возникала ошибка</string>
     <string name="error_network">возникала ошибка сети</string>
+    <string name="successfully">успешно</string>
 </resources>
