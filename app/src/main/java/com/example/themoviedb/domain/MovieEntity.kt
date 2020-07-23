@@ -8,19 +8,21 @@ data class MovieEntity(
     val id: Int,
     val title: String,
     val posterPath: String,
-    val overview: String
-):Serializable
+    val overview: String,
+    val cast: List<MovieCastEntity>
+) : Serializable
 
-fun MovieInfo.toEntity(): MovieEntity {
+fun MovieInfo.toEntity(cast: List<MovieCastEntity>): MovieEntity {
     return MovieEntity(
         id,
         title,
         posterPath ?: "",
-        overview ?: ""
+        overview ?: "",
+        cast
     )
 }
 
-fun MovieEntity.toSaved():SavedMoviePreviewEntity{
+fun MovieEntity.toSaved(): SavedMoviePreviewEntity {
     return SavedMoviePreviewEntity(
         id,
         title,

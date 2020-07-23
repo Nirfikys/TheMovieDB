@@ -5,6 +5,7 @@ import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.themoviedb.R
 import com.example.themoviedb.databinding.MovieInfoLayoutBinding
 import com.example.themoviedb.domain.MovieEntity
@@ -12,6 +13,7 @@ import com.example.themoviedb.domain.MovieRepository
 import com.example.themoviedb.presenter.viewmodel.SavedMovieViewModel
 import com.example.themoviedb.presenter.viewmodel.SavedMovieViewModelFactory
 import com.example.themoviedb.ui.App
+import com.example.themoviedb.ui.adapter.CastMovieAdapter
 import com.example.themoviedb.ui.core.observe
 import com.example.themoviedb.ui.home.MainActivity
 import com.google.android.material.snackbar.Snackbar
@@ -25,7 +27,7 @@ class MovieDetailFragment : Fragment() {
     private lateinit var movie: MovieEntity
     private val args: MovieDetailFragmentArgs by navArgs()
     private val saveModel: SavedMovieViewModel by viewModels { SavedMovieViewModelFactory(repository) }
-
+    private val adapter = CastMovieAdapter()
 
     init {
         App.appComponent.inject(this)
@@ -71,6 +73,9 @@ class MovieDetailFragment : Fragment() {
     }
 
     private fun setupView() {
+        binding.castRecycler.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+        binding.castRecycler.adapter = adapter
+        adapter.changeAdapterData(movie.cast)
         observe(saveModel.movieSaveStatus) {
             val value = it.getContentIfNotHandled() ?: return@observe
             showMessage(requireContext().getText(R.string.successfully))

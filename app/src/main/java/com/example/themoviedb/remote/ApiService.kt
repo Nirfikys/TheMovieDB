@@ -12,6 +12,7 @@ interface ApiService {
         const val POPULAR_MOVIE = "3/discover/movie?api_key=$API_KEY&sort_by=popularity.desc"
         const val UPCOMING_MOVIE = "3/movie/upcoming?api_key=$API_KEY"
         const val INFO = "3/movie/{movie_id}?api_key=$API_KEY"
+        const val CAST = "3/movie/{movie_id}/credits?api_key=$API_KEY"
 
         //params
         const val PARAM_PAGE = "page"
@@ -26,4 +27,6 @@ interface ApiService {
     @GET(INFO)
     suspend fun getMovieInfo(@Path("movie_id") id: Int): MovieInfo
 
+    @GET(CAST)
+    suspend fun getCastInfo(@Path("movie_id") id: Int): MovieCast
 }

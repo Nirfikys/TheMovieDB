@@ -50,7 +50,9 @@ class MovieRepositoryImpl(
     }
 
     override suspend fun getMovieInfo(id: Int): MovieEntity {
-        return remote.getMovieInfo(id).toEntity()
+        val movieInfo = remote.getMovieInfo(id)
+        val cast = remote.getCastInfo(id)
+        return movieInfo.toEntity(cast.cast.map { it.toEntity() })
     }
 
 }
