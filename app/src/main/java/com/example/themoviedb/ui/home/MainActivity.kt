@@ -2,9 +2,11 @@ package com.example.themoviedb.ui.home
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Gravity
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.view.ActionMode
+import androidx.core.view.GravityCompat
 import androidx.databinding.ViewDataBinding
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.NavController
@@ -23,6 +25,7 @@ class MainActivity : AppCompatActivity() {
     lateinit var navController: NavController
     var actionMode: ActionMode? = null
     val actionModeCallbacks = HashMap<MovieListFragment<ViewDataBinding>, MovieActionModeCallback>()
+    lateinit var drawerLayout: DrawerLayout
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,20 +34,27 @@ class MainActivity : AppCompatActivity() {
             .findFragmentById(R.id.my_nav_host_fragment) as NavHostFragment? ?: return
         navController = host.navController
 
-        val drawerLayout = findViewById<DrawerLayout>(R.id.drawer_layout)
+        drawerLayout = findViewById<DrawerLayout>(R.id.drawer_layout)
         appBarConfiguration =
             AppBarConfiguration(setOf(R.id.homeFragment, R.id.savedListFragment), drawerLayout)
 
         val navView =
             findViewById<NavigationView>(R.id.nav_view).setupWithNavController(navController)
 
-        navController.addOnDestinationChangedListener{ _, _, _ ->
+        navController.addOnDestinationChangedListener { _, _, _ ->
             actionMode?.finish()
         }
     }
 
     override fun onSupportNavigateUp(): Boolean {
         return findNavController(R.id.my_nav_host_fragment).navigateUp(appBarConfiguration)
+    }
+
+    override fun onBackPressed() {
+        if (drawerLayout.isOpen)
+            drawerLayout.closeDrawer(GravityCompat.START)
+        else
+            super.onBackPressed()
     }
 
     fun setupToolbar() {
