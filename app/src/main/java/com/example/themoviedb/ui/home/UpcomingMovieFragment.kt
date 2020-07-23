@@ -4,24 +4,16 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.themoviedb.databinding.MovieListLayoutBinding
 import com.example.themoviedb.domain.MovieRepository
-import com.example.themoviedb.presenter.viewmodel.MovieViewModel
-import com.example.themoviedb.presenter.viewmodel.MovieViewModelFactory
 import com.example.themoviedb.ui.App
-import com.example.themoviedb.ui.adapter.PreviewMovieAdapter
-import com.example.themoviedb.ui.core.observe
 import javax.inject.Inject
 
-class UpcomingMovieFragment:Fragment() {
-    lateinit var binding: MovieListLayoutBinding
+class UpcomingMovieFragment: MovieListFragment<MovieListLayoutBinding>(false) {
+    override lateinit var binding: MovieListLayoutBinding
     @Inject
-    lateinit var repository: MovieRepository
-    val movieModel: MovieViewModel by viewModels { MovieViewModelFactory(repository, false) }
-    val adapter = PreviewMovieAdapter()
+    override lateinit var repository: MovieRepository
 
     init {
         App.appComponent.inject(this)
@@ -39,13 +31,9 @@ class UpcomingMovieFragment:Fragment() {
         return binding.root
     }
 
-    private fun setupView() {
+    override fun setupView() {
         binding.movieRecycler.layoutManager = GridLayoutManager(requireContext(), 2)
         binding.movieRecycler.adapter = adapter
-
-
-        observe(movieModel.moviePreviews) {
-            adapter.changeAdapterData(it.movies)
-        }
+        super.setupView()
     }
 }
