@@ -21,16 +21,18 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
+            android:transitionName="@{@string/transition_image_pattern(movie.id)}"
             android:id="@+id/imageView"
             movieImage="@{movie.posterPath}"
-            android:layout_width="wrap_content"
+            android:layout_width="150dp"
             android:layout_height="200dp"
             android:src="@drawable/ic_error_black_48dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/toolbar" />
 
         <TextView
-            android:id="@+id/textView"
+            android:transitionName="@{@string/transition_title_pattern(movie.id)}"
+            android:id="@+id/movie_item_title"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="@{movie.title}"
@@ -41,13 +43,15 @@
             tools:text="title" />
 
         <TextView
+            android:id="@+id/movie_item_overview"
+            android:transitionName="@{@string/transition_overview_pattern(movie.id)}"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="@{movie.overview}"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/imageView"
-            app:layout_constraintTop_toBottomOf="@+id/textView"
+            app:layout_constraintTop_toBottomOf="@+id/movie_item_title"
             tools:text="overview" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -6,4 +6,7 @@
     <string name="tab_upcoming">предстоящие</string>
     <string name="page_indicator_pattern">%d/%d</string>
     <string name="add_to_save">add to save</string>
+    <string name="transition_image_pattern">image %d</string>
+    <string name="transition_title_pattern">title %d</string>
+    <string name="transition_overview_pattern">overview %d</string>
 </resources>

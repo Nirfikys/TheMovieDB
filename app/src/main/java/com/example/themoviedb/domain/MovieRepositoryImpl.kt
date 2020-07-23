@@ -16,6 +16,12 @@ class MovieRepositoryImpl(
         cache.saveMovie(moviePreview.map { it.toSavedMovie() })
     }
 
+    override suspend fun saveMovie(movie: MovieEntity) {
+        cache.saveMovie(listOf(
+            movie.toSaved()
+        ))
+    }
+
     override suspend fun deleteSavedMovie(moviePreview: MoviePreviewEntity) {
         cache.deleteSavedMovie(moviePreview.toSavedMovie())
     }

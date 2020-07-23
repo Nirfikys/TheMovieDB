@@ -30,6 +30,7 @@
             android:orientation="vertical">
 
             <TextView
+                android:transitionName="@{@string/transition_title_pattern(movie.id)}"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
@@ -39,12 +40,15 @@
                 tools:text="Titile" />
 
             <ImageView
+                android:transitionName="@{@string/transition_image_pattern(movie.id)}"
+                android:id="@+id/movie_item_image"
                 movieImage="@{movie.posterPath}"
                 android:layout_width="match_parent"
                 android:layout_height="150dp"
                 android:scaleType="centerCrop" />
 
             <TextView
+                android:transitionName="@{@string/transition_overview_pattern(movie.id)}"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"

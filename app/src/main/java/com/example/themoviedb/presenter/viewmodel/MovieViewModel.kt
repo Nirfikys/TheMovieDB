@@ -4,10 +4,12 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
+import com.example.themoviedb.domain.MovieEntity
 import com.example.themoviedb.domain.MoviePreviewEntity
 import com.example.themoviedb.domain.MovieRepository
 import com.example.themoviedb.domain.PageMovieEntity
 import com.example.themoviedb.presenter.core.HandleOnce
+import kotlinx.coroutines.handleCoroutineException
 import kotlinx.coroutines.launch
 
 class MovieViewModel(
@@ -21,6 +23,7 @@ class MovieViewModel(
 
     val moviePreviews = MutableLiveData<PageMovieEntity>()
     val movieChangePageInProgress = MutableLiveData<Boolean>(false)
+    val movieInfoData = MutableLiveData<HandleOnce<MovieEntity>>()
 
     fun getNextPage() {
         val previewsPage = moviePreviews.value ?: return
@@ -48,6 +51,17 @@ class MovieViewModel(
                 repository.saveMovies(moviePreviews)
             }catch (e:Exception){
                 failureData.value = HandleOnce(e)
+            }
+        }
+    }
+
+    fun getMovieInfo(movie:MoviePreviewEntity){
+        viewModelScope.launch {
+            try {
+                val movieInfo = repository.getMovieInfo(movie.id)
+                movieInfoData.value = HandleOnce(movieInfo)
+            }catch (e:Exception){
+                handleFailure(e)
             }
         }
     }

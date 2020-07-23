@@ -32,4 +32,5 @@ interface AppComponent {
     fun inject(fragment: PopularMovieFragment)
     fun inject(fragment: UpcomingMovieFragment)
     fun inject(fragment: SavedListFragment)
+    fun inject(fragment: MovieDetailFragment)
 }
