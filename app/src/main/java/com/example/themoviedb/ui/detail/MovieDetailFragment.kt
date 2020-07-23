@@ -12,7 +12,9 @@ import com.example.themoviedb.domain.MovieRepository
 import com.example.themoviedb.presenter.viewmodel.SavedMovieViewModel
 import com.example.themoviedb.presenter.viewmodel.SavedMovieViewModelFactory
 import com.example.themoviedb.ui.App
+import com.example.themoviedb.ui.core.observe
 import com.example.themoviedb.ui.home.MainActivity
+import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.transition.MaterialContainerTransform
 import javax.inject.Inject
 
@@ -69,7 +71,14 @@ class MovieDetailFragment : Fragment() {
     }
 
     private fun setupView() {
+        observe(saveModel.movieSaveStatus) {
+            val value = it.getContentIfNotHandled() ?: return@observe
+            showMessage(requireContext().getText(R.string.successfully))
+        }
+    }
 
+    private fun showMessage(message: CharSequence) {
+        Snackbar.make(binding.root, message, Snackbar.LENGTH_LONG).show()
     }
 
     private fun setupToolbar() {

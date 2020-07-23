@@ -45,23 +45,23 @@ class MovieViewModel(
         getPage(1)
     }
 
-    fun saveOrDeleteMovies(moviePreviews: List<MoviePreviewEntity>){
+    fun saveOrDeleteMovies(moviePreviews: List<MoviePreviewEntity>) {
         viewModelScope.launch {
             try {
                 repository.saveOrDeleteMovies(moviePreviews)
                 movieSaveStatus.value = HandleOnce(0)
-            }catch (e:Exception){
+            } catch (e: Exception) {
                 failureData.value = HandleOnce(e)
             }
         }
     }
 
-    fun getMovieInfo(movie:MoviePreviewEntity){
+    fun getMovieInfo(movie: MoviePreviewEntity) {
         viewModelScope.launch {
             try {
                 val movieInfo = repository.getMovieInfo(movie.id)
                 movieInfoData.value = HandleOnce(movieInfo)
-            }catch (e:Exception){
+            } catch (e: Exception) {
                 handleFailure(e)
             }
         }

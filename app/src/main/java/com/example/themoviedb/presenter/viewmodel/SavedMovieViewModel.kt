@@ -1,5 +1,6 @@
 package com.example.themoviedb.presenter.viewmodel
 
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
@@ -13,11 +14,13 @@ class SavedMovieViewModel(
 ) : BaseViewModel() {
 
     val savedMovies = repository.savedMovies
+    val movieSaveStatus = MutableLiveData<HandleOnce<Int>>()
 
     fun saveOrDeleteMovies(movie: MovieEntity){
         viewModelScope.launch {
             try {
                 repository.saveOrDeleteMovie(movie)
+                movieSaveStatus.value = HandleOnce(0)
             }catch (e:Exception){
                 failureData.value = HandleOnce(e)
             }
